@@ -32,12 +32,18 @@ def add_topic():
     topic_list.append(str(content['topic']))
     values.append(topic_list)
     
-    # Add content to paragraph list then values list
-    para_list.append(str(response.content[0:100]))
-    values.append(para_list)
-    
     # Parse the HTML content using BeautifulSoup
     soup = BeautifulSoup(response.content, 'html.parser')
+    
+    # Add content to paragraph list then values list
+    para = soup.find_all('p')[0].text[0:100]
+    print(para)
+    para_list.append(para)
+    values.append(para_list)
+    
+    # Add content to paragraph list then values list
+    #para_list.append(str(response.content[0:100]))
+    #values.append(para_list)
 
     # Find the page title then add to title list.
     title = soup.find('title').text
